@@ -18,7 +18,7 @@ LawGPT is a generative AI attorney chatbot that is trained using Indian Penal Co
 1. Install necessary packages:
 
    `pip install -r requirements.txt`
-3. Create and store vector embeddings:
+2. Create and store vector embeddings:
    
    ```py
    from langchain.document_loaders import PyPDFLoader, DirectoryLoader
@@ -36,6 +36,7 @@ LawGPT is a generative AI attorney chatbot that is trained using Indian Penal Co
    persist_directory = "ipc_vector_data"
    db = Chroma.from_documents(texts, embeddings, persist_directory=persist_directory)
    ```
+3. Run the `LawGPT.py` file.
 
 # Usage
 
