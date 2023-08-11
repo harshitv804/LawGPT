@@ -1,45 +1,57 @@
-from langchain import OpenAI
-from llama_index import PromptHelper
-from llama_index import LLMPredictor, ServiceContext
-from llama_index import StorageContext, load_index_from_storage
-import gradio as gr
-import os
-os.environ['OPENAI_API_KEY']
+from langchain.vectorstores import Chroma
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM 
+from transformers import pipeline
+import torch
+from langchain.llms import HuggingFacePipeline
+from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain.chains import RetrievalQA
+import gradio as gr 
 
 def chat(chat_history, user_input):
 
-    bot_response = query_engine.query(user_input)
+    bot_response = qa_chain({"query": user_input})
+    bot_response = bot_response['result']
     response = ""
-    for letter in ''.join(bot_response.response):
+    for letter in ''.join(bot_response):
         response += letter + ""
         yield chat_history + [(user_input, response)]
 
+checkpoint = "MBZUAI/LaMini-Flan-T5-783M"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+base_model = AutoModelForSeq2SeqLM.from_pretrained(
+    checkpoint,
+    device_map="auto",
+    torch_dtype = torch.float32)
 
-context_window = 4096
-num_outputs = 500
-chunk_overlap_ratio = 0.2
-chunk_size_limit = 1000
+embeddings = SentenceTransformerEmbeddings(model_name="sentence-transformers/multi-qa-mpnet-base-dot-v1")
 
-prompt_helper = PromptHelper(
-    context_window, num_outputs, chunk_overlap_ratio, chunk_size_limit=chunk_size_limit)
+db = Chroma(persist_directory="ipc_vector_data", embedding_function=embeddings)
 
-llm_predictor = LLMPredictor(llm=OpenAI(
-    temperature=0, model_name="text-davinci-003", max_tokens=num_outputs))
+pipe = pipeline(
+    'text2text-generation',
+    model = base_model,
+    tokenizer = tokenizer,
+    max_length = 512,
+    do_sample = True,
+    temperature = 0.3,
+    top_p= 0.95
+)
+local_llm = HuggingFacePipeline(pipeline=pipe)
 
-service_context = ServiceContext.from_defaults(
-    llm_predictor=llm_predictor, prompt_helper=prompt_helper)
+qa_chain = RetrievalQA.from_chain_type(llm=local_llm,
+        chain_type='stuff',
+        retriever=db.as_retriever(search_type="similarity", search_kwargs={"k":2}),
+        return_source_documents=True,
+        )
 
-storage_context = StorageContext.from_defaults(persist_dir='storage')
-index = load_index_from_storage(
-    storage_context, service_context=service_context)
-query_engine = index.as_query_engine(service_context=service_context)
-
-with gr.Blocks() as demo:
+with gr.Blocks() as gradioUI:
+    
     gr.Image('lawgptlogo.png')
+    
     with gr.Row():
         chatbot = gr.Chatbot()
     with gr.Row():
-        input_query = gr.TextArea(label='Input').style(show_copy_button=True)
+        input_query = gr.TextArea(label='Input',show_copy_button=True)
 
     with gr.Row():
         with gr.Column():
@@ -50,8 +62,8 @@ with gr.Blocks() as demo:
             clear_chat_btn = gr.Button("Clear Chat")
 
     submit_btn.click(chat, [chatbot, input_query], chatbot)
-    submit_btn.click(lambda x: gr.update(value=""), None, input_query, queue=False)
+    submit_btn.click(lambda: gr.update(value=""), None, input_query, queue=False)
     clear_input_btn.click(lambda: None, None, input_query, queue=False)
     clear_chat_btn.click(lambda: None, None, chatbot, queue=False)
 
-demo.queue().launch()
+gradioUI.queue().launch()
