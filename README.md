@@ -28,11 +28,12 @@ LawGPT is a generative AI attorney chatbot that is trained using Indian Penal Co
    
    loader = DirectoryLoader('data', glob="./*.pdf", loader_cls=PyPDFLoader)
    documents = loader.load()
+   
    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=200)
    texts = text_splitter.split_documents(documents)
 
    embeddings = SentenceTransformerEmbeddings(model_name="multi-qa-mpnet-base-dot-v1")
-   persist_directory = "ipc_vector_data
+   persist_directory = "ipc_vector_data"
    db = Chroma.from_documents(texts, embeddings, persist_directory=persist_directory)
    ```
 
