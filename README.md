@@ -9,24 +9,22 @@
 </div>
 <br>
 
-# About The Project
+## About The Project
 LawGPT is a generative AI attorney chatbot that is trained using Indian Penal Code data. This project was developed using LangChain and LaMini Flan-T5 LLM. Ask any questions to the attorney and it will give you the right justice as per the IPC. Are you a noob in knowing your rights? then this is for you!
 <br>
 
-# Getting Started
+## Getting Started
 
-1. Clone the repository:
+#### 1. Clone the repository:
+   - ```
+     git clone https://github.com/harshitv804/LawGPT.git
+     ```
+#### 2. Install necessary packages:
+   - ```
+     pip install -r requirements.txt
+     ```
+#### 3. Run the `VectorEmbeddings.py` file.
+#### 4. Run the `LawGPT.py` file.
 
-   `git clone https://github.com/harshitv804/LawGPT.git`
-1. Install necessary packages:
-
-   `pip install -r requirements.txt`
-2. Create and store vector embeddings:
-
-3. Run the `LawGPT.py` file.
-
-# Usage
-
-# Contact
-
-# Acknowledgments
+## Contact
+If you have any questions or feedback, please reach out to [harshitv804@gmail.com]
