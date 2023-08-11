@@ -5,3 +5,4 @@ gradio
 sentence-transformers
 accelerate
 chromadb
+pypdf
