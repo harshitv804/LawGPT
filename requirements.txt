@@ -1,8 +1,9 @@
 langchain
+pypdf
 transformers
-torch
-gradio
 sentence-transformers
 accelerate
-chromadb
-pypdf
+faiss-cpu
+streamlit
+langchain-fireworks
+einops
