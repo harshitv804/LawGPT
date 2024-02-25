@@ -1,5 +1,4 @@
-<h1 align="center">LawGPT</h1>
-<h3 align="center">A Generative AI Attorney Chatbot</h1>
+<h1 align="center">LawGPT - A Generative AI Attorney Chatbot</h1>
 <h3 align="center">Know Your Rights! Better Citizen, Better Nation!</h1>
 
 <p align="center">
