@@ -1,7 +1,7 @@
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.prompts import PromptTemplate
-from langchain_fireworks import Fireworks
+from langchain_together import Together
 import os
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chains import ConversationalRetrievalChain
@@ -53,22 +53,23 @@ embeddings = HuggingFaceEmbeddings(model_name="nomic-ai/nomic-embed-text-v1",mod
 db = FAISS.load_local("ipc_vector_db", embeddings)
 db_retriever = db.as_retriever(search_type="similarity",search_kwargs={"k": 4})
 
-prompt_template = """Follow these instructions clearly. This is a chat template and you are a Indian lawyer chat bot who provides correct information on Indian Penal Code. Give only the required answer to the question do not give unwanted information. Do not repeat anything, Generate only the answer, don't ask any questions. You are given the following pieces of information to answer the user's question correctly. You will be given context, chat history and the question. Choose only the required context based on the user's question. If the question is not related to the chat history, then don't use the history. Use chat history when required for similar related questions. While searching for the relevant information always give priority to the context given. Always take the context related only to the question. Use your own knowledge base and answer the question when the context is not related to the user's question. Utilize the provided knowledge base and search for relevant information from the context. Follow the user's question and the format closely. The answer should be short and concise. If you don't know the answer, just say that you don't know, don't try to make up your own questions and answers. Add bullet points and bold text using markdown in the required area if needed, to make it more pleasing to eyes. Do not repeat anything from the prompt template.
+prompt_template = """<s>[INST]This is a chat template and As a legal chat bot specializing in Indian Penal Code queries, your primary objective is to provide accurate and concise information based on the user's questions. Do not generate your own questions and answers. You will adhere strictly to the instructions provided, offering relevant context from the knowledge base while avoiding unnecessary details. Your responses will be brief, to the point, and in compliance with the established format. If a question falls outside the given context, you will refrain from utilizing the chat history and instead rely on your own knowledge base to generate an appropriate response. You will prioritize the user's query and refrain from posing additional questions. The aim is to deliver professional, precise, and contextually relevant information pertaining to the Indian Penal Code.
 CONTEXT: {context}
 CHAT HISTORY: {chat_history}
 QUESTION: {question}
 ANSWER:
+</s>[INST]
 """
 
 prompt = PromptTemplate(template=prompt_template,
                         input_variables=['context', 'question', 'chat_history'])
 
-llm = Fireworks(
-    model="accounts/fireworks/models/mistral-7b-instruct-4k",
-    base_url="https://api.fireworks.ai/inference/v1/chat/completions",
+TOGETHER_AI_API= os.environ['TOGETHER_AI']
+llm = Together(
+    model="mistralai/Mistral-7B-Instruct-v0.2",
+    temperature=0.5,
     max_tokens=1024,
-    temperature=0.7,
-    top_p=1.0,
+    together_api_key=f"{TOGETHER_AI_API}"
 )
 
 qa = ConversationalRetrievalChain.from_llm(
