@@ -22,14 +22,14 @@ LawGPT is a generative AI attorney chatbot that is trained using Indian Penal Co
      pip install -r requirements.txt
      ```
 #### 3. Run the `ingest.py` file, preferably on kaggle or colab for faster embeddings processing and then download the `ipc_vector_db` from the output folder and save it locally.
-#### 4. Signup and get 25$ of free credit, and then set TogetherAI API Key in environment variable in python. 
+#### 4. Signup and get 25$ of free credit (or just pay for it If you wish to use for long-term, they are more cheaper than OpenAI API. You can also use other LLMs or APIs if you wish so. Check this link: [python.langchain.com/docs/integrations/llms](https://python.langchain.com/docs/integrations/llms) for more options.), and then set TogetherAI API Key in environment variable in python. 
    - ```
       os.environ["TOGETHER_API_KEY"] = "YOUR_TOGETHER_API_KEY"`
      ```
    - If you are going to host it in streamlit, huggingface or other...
-      - Save it in the secrets variable provided by the hosting with the name `TOGETHER_API_KEY` and key as `YOUR_TOGETHER_API_KEY`
+      - Save it in the secrets variable provided by the hosting with the name `TOGETHER_API_KEY` and key as `YOUR_TOGETHER_API_KEY`.
 
-#### 4. Run the `app.py` file.
+#### 4. To run the `app.py` file, open the CMD Terminal and and type `streamlit run FULL_FILE_PATH_OF_APP.PY`.
 
 ## Contact
 If you have any questions or feedback, please reach out to [harshitvenkatesan88@gmail.com]
