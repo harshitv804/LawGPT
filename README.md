@@ -29,7 +29,7 @@ LawGPT is a RAG based generative AI attorney chatbot that is trained using India
    - If you are going to host it in streamlit, huggingface or other...
       - Save it in the secrets variable provided by the hosting with the name `TOGETHER_API_KEY` and key as `YOUR_TOGETHER_API_KEY`.
 
-#### 4. To run the `app.py` file, open the CMD Terminal and and type `streamlit run FULL_FILE_PATH_OF_APP.PY`.
+#### 5. To run the `app.py` file, open the CMD Terminal and and type `streamlit run FULL_FILE_PATH_OF_APP.PY`.
 
 ## Contact
 If you have any questions or feedback, please reach out to [harshitvenkatesan88@gmail.com]
