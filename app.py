@@ -64,6 +64,7 @@ ANSWER:
 prompt = PromptTemplate(template=prompt_template,
                         input_variables=['context', 'question', 'chat_history'])
 
+# You can also use other LLMs options from https://python.langchain.com/docs/integrations/llms. Here I have used TogetherAI API
 TOGETHER_AI_API= os.environ['TOGETHER_AI']
 llm = Together(
     model="mistralai/Mistral-7B-Instruct-v0.2",
