@@ -1,4 +1,4 @@
-<h1 align="center">LawGPT - A Generative AI Attorney Chatbot</h1>
+<h1 align="center">LawGPT - RAG based Generative AI Attorney Chatbot</h1>
 <h3 align="center">Know Your Rights! Better Citizen, Better Nation!</h1>
 
 <p align="center">
@@ -6,7 +6,7 @@
 </p>
 
 ## About The Project
-LawGPT is a generative AI attorney chatbot that is trained using Indian Penal Code data. This project was developed using Streamlit LangChain and TogetherAI API for the LLM. Ask any questions to the attorney and it will give you the right justice as per the IPC. Are you a noob in knowing your rights? then this is for you!
+LawGPT is a RAG based generative AI attorney chatbot that is trained using Indian Penal Code data. This project was developed using Streamlit LangChain and TogetherAI API for the LLM. Ask any questions to the attorney and it will give you the right justice as per the IPC. Are you a noob in knowing your rights? then this is for you!
 <br>
 
 ### Check out the live demo on Hugging Face <a href="https://huggingface.co/spaces/harshitv804/LawGPT"><img src="https://static.vecteezy.com/system/resources/previews/009/384/880/non_2x/click-here-button-clipart-design-illustration-free-png.png" width="120" height="auto"></a>
