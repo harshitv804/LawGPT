@@ -31,7 +31,7 @@ LawGPT is a RAG based generative AI attorney chatbot that is trained using India
      pip install -r requirements.txt
      ```
 #### 3. Run the `ingest.py` file, preferably on kaggle or colab for faster embeddings processing and then download the `ipc_vector_db` from the output folder and save it locally.
-#### 4. Signup and get 25$ of free credit (or just pay for it If you wish to use for long-term, they are more cheaper than OpenAI API. You can also use other LLMs or APIs if you wish so. Check this link: [python.langchain.com/docs/integrations/llms](https://python.langchain.com/docs/integrations/llms) for more options.), and then set TogetherAI API Key in environment variable in python. 
+#### 4. Sign up with Together AI today and get $25 worth of free credit! 🎉 Whether you choose to use it for a short-term project or opt for a long-term commitment, Together AI offers cost-effective solutions compared to the OpenAI API. 🚀 You also have the flexibility to explore other Language Models (LLMs) or APIs if you prefer. For a comprehensive list of options, check out this link: [python.langchain.com/docs/integrations/llms](https://python.langchain.com/docs/integrations/llms) . Once signed up, seamlessly integrate Together AI into your Python environment by setting the API Key as an environment variable. 💻✨ 
    - ```
       os.environ["TOGETHER_API_KEY"] = "YOUR_TOGETHER_API_KEY"`
      ```
